@@ -4,10 +4,4 @@ import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class ProfilerApplication: Application() {
-
-    override fun onCreate() {
-        super.onCreate()
-
-    }
-}
+class ProfilerApplication: Application()

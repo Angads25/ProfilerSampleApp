@@ -16,6 +16,15 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ImageGalleryActivity: BaseActivity<ActivityImageGridBinding, ImageGalleryViewModel, ImageGalleryIntent.ViewEvent, ImageGalleryIntent.ViewEffect, ImageGalleryIntent.ViewState>() {
 
+    private val recyclerViewScrollListener: RecyclerView.OnScrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                viewModel.processEvent(ImageGalleryIntent.ViewEvent.OnBottomOfList)
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -25,14 +34,7 @@ class ImageGalleryActivity: BaseActivity<ActivityImageGridBinding, ImageGalleryV
 
         viewModel.processEvent(ImageGalleryIntent.ViewEvent.OnPageLoad("nature"))
 
-        binding.imageList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    viewModel.processEvent(ImageGalleryIntent.ViewEvent.OnBottomOfList)
-                }
-            }
-        })
+        binding.imageList.addOnScrollListener(recyclerViewScrollListener)
     }
 
     override val bindingInflater: (LayoutInflater) -> ActivityImageGridBinding
@@ -64,4 +66,9 @@ class ImageGalleryActivity: BaseActivity<ActivityImageGridBinding, ImageGalleryV
     }
 
     override fun viewModelType(): Class<ImageGalleryViewModel> = ImageGalleryViewModel::class.java
+
+    override fun onDestroy() {
+        binding.imageList.removeOnScrollListener(recyclerViewScrollListener)
+        super.onDestroy()
+    }
 }
