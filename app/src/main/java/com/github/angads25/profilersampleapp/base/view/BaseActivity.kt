@@ -8,17 +8,15 @@ import androidx.viewbinding.ViewBinding
 import com.github.angads25.profilersampleapp.base.intent.BaseIntent
 import com.github.angads25.profilersampleapp.base.viewmodel.BaseViewModel
 
-abstract class BaseActivity<VB: ViewBinding, VM: BaseViewModel<V, W, X>, V: BaseIntent.ViewEvent, W: BaseIntent.ViewEffect, X: BaseIntent.ViewState>: AppCompatActivity() {
+abstract class BaseActivity<VB: ViewBinding, VM: BaseViewModel<U, VE, VS>, U: BaseIntent.ViewEvent, VE: BaseIntent.ViewEffect, VS: BaseIntent.ViewState>: AppCompatActivity() {
 
     protected lateinit var viewModel: VM
 
     protected lateinit var binding: VB
 
-    abstract val bindingInflater: (LayoutInflater) -> VB
+    abstract fun renderState(state: VS)
 
-    abstract fun renderState(state: X)
-
-    abstract fun renderEffect(effect: W)
+    abstract fun renderEffect(effect: VE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +30,8 @@ abstract class BaseActivity<VB: ViewBinding, VM: BaseViewModel<V, W, X>, V: Base
         viewModel.getEffect().observe(this, {renderEffect(it)})
         viewModel.getState().observe(this, {renderState(it)})
     }
+
+    abstract val bindingInflater: (LayoutInflater) -> VB
 
     abstract fun viewModelType(): Class<VM>
 }
