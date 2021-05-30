@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.github.angads25.profilersampleapp.mainscreen.view.ImageGridActivity"
+        <activity android:name="com.github.angads25.profilersampleapp.imagegallery.view.ImageGalleryActivity"
             android:screenOrientation="portrait"/>
     </application>
 </manifest>

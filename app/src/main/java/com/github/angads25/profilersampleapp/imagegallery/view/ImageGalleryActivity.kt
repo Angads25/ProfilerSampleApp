@@ -1,10 +1,10 @@
-package com.github.angads25.profilersampleapp.mainscreen.view
+package com.github.angads25.profilersampleapp.imagegallery.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.github.angads25.profilersampleapp.R
 
-class ImageGridActivity: AppCompatActivity() {
+class ImageGalleryActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
