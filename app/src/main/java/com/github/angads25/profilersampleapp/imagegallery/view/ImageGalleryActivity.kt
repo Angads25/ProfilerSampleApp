@@ -42,18 +42,17 @@ class ImageGalleryActivity: BaseActivity<ActivityImageGridBinding, ImageGalleryV
 
     override fun renderState(state: ImageGalleryIntent.ViewState) {
         when(state) {
-            is ImageGalleryIntent.ViewState.ShowLoader -> binding.loadingLayout.visibility =
-                View.VISIBLE
+            is ImageGalleryIntent.ViewState.ShowLoader ->
+                binding.loadingLayout.visibility = View.VISIBLE
 
-            is ImageGalleryIntent.ViewState.HideLoader -> binding.loadingLayout.visibility =
-                View.GONE
+            is ImageGalleryIntent.ViewState.HideLoader ->
+                binding.loadingLayout.visibility = View.GONE
 
             is ImageGalleryIntent.ViewState.ShowError ->
                 Snackbar.make(binding.root, "Error Loading Images", Snackbar.LENGTH_LONG).show()
 
-            is ImageGalleryIntent.ViewState.Success -> {
+            is ImageGalleryIntent.ViewState.Success ->
                 (binding.imageList.adapter as ImageListAdapter).addImages(state.data)
-            }
         }
     }
 

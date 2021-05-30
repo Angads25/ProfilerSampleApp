@@ -8,13 +8,13 @@ import androidx.viewbinding.ViewBinding
 import com.github.angads25.profilersampleapp.base.intent.BaseIntent
 import com.github.angads25.profilersampleapp.base.viewmodel.BaseViewModel
 
-abstract class BaseActivity<T: ViewBinding, U: BaseViewModel<V, W, X>, V: BaseIntent.ViewEvent, W: BaseIntent.ViewEffect, X: BaseIntent.ViewState>: AppCompatActivity() {
+abstract class BaseActivity<VB: ViewBinding, VM: BaseViewModel<V, W, X>, V: BaseIntent.ViewEvent, W: BaseIntent.ViewEffect, X: BaseIntent.ViewState>: AppCompatActivity() {
 
-    protected lateinit var viewModel: U
+    protected lateinit var viewModel: VM
 
-    protected lateinit var binding: T
+    protected lateinit var binding: VB
 
-    abstract val bindingInflater: (LayoutInflater) -> T
+    abstract val bindingInflater: (LayoutInflater) -> VB
 
     abstract fun renderState(state: X)
 
@@ -33,5 +33,5 @@ abstract class BaseActivity<T: ViewBinding, U: BaseViewModel<V, W, X>, V: BaseIn
         viewModel.getState().observe(this, {renderState(it)})
     }
 
-    abstract fun viewModelType(): Class<U>
+    abstract fun viewModelType(): Class<VM>
 }
