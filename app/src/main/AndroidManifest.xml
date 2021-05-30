@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProfilerSampleApp">
 
-        <activity android:name=".view.MainActivity"
+        <activity android:name="com.github.angads25.profilersampleapp.mainscreen.view.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.ImageGridActivity"
+        <activity android:name="com.github.angads25.profilersampleapp.mainscreen.view.ImageGridActivity"
             android:screenOrientation="portrait"/>
     </application>
 </manifest>

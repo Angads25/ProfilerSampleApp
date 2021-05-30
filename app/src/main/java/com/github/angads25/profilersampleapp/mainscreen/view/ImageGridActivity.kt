@@ -1,9 +1,8 @@
-package com.github.angads25.profilersampleapp.view
+package com.github.angads25.profilersampleapp.mainscreen.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.github.angads25.profilersampleapp.R
-import dagger.hilt.android.AndroidEntryPoint
 
 class ImageGridActivity: AppCompatActivity() {
 
