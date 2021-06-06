@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.angads25.profilersampleapp.SomeConfiguration
+import com.github.angads25.profilersampleapp.SomeLibraryClass
 import com.github.angads25.profilersampleapp.base.view.BaseActivity
 import com.github.angads25.profilersampleapp.databinding.ActivityImageGridBinding
 import com.github.angads25.profilersampleapp.imagegallery.intent.ImageGalleryIntent
@@ -14,7 +16,11 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class ImageGalleryActivity: BaseActivity<ActivityImageGridBinding, ImageGalleryViewModel, ImageGalleryIntent.ViewEvent, ImageGalleryIntent.ViewEffect, ImageGalleryIntent.ViewState>() {
+class ImageGalleryActivity:
+    BaseActivity<ActivityImageGridBinding, ImageGalleryViewModel, ImageGalleryIntent.ViewEvent, ImageGalleryIntent.ViewEffect, ImageGalleryIntent.ViewState>(),
+    Function<String> {
+
+    private lateinit var someLibraryClass: SomeLibraryClass
 
     private val recyclerViewScrollListener: RecyclerView.OnScrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -32,9 +38,12 @@ class ImageGalleryActivity: BaseActivity<ActivityImageGridBinding, ImageGalleryV
         binding.imageList.layoutManager = gridLayoutManager
         binding.imageList.adapter = ImageListAdapter()
 
-        viewModel.processEvent(ImageGalleryIntent.ViewEvent.OnPageLoad("nature"))
+        viewModel.processEvent(ImageGalleryIntent.ViewEvent.OnPageLoad("galaxy"))
 
         binding.imageList.addOnScrollListener(recyclerViewScrollListener)
+
+        someLibraryClass = SomeLibraryClass(this)
+        SomeConfiguration.init(this)
     }
 
     override val bindingInflater: (LayoutInflater) -> ActivityImageGridBinding
@@ -58,9 +67,7 @@ class ImageGalleryActivity: BaseActivity<ActivityImageGridBinding, ImageGalleryV
 
     override fun renderEffect(effect: ImageGalleryIntent.ViewEffect) {
         when(effect) {
-            is ImageGalleryIntent.ViewEffect.NavigateBack -> {
-
-            }
+            is ImageGalleryIntent.ViewEffect.NavigateBack -> finish()
         }
     }
 
